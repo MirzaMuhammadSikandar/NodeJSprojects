@@ -20,12 +20,12 @@ const sendEmail = (user, data, res) => {
         from: 'sikandarmiirza@gmail.com',
         to: user.email,
         subject: 'Test Email', 
-        text: `${data}.` 
+        text: `${data}` 
     }
 
     transporter.sendMail(message).then(() => {
         return res.status(201).json({
-            msg: "you should receive an OTP on your email"
+            msg: "you should receive a message on your email"
         })
     }).catch(error => {
         return res.status(500).json({ error })

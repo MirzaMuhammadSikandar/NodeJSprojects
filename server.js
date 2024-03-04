@@ -8,6 +8,7 @@ const appRoute = require("./routes/userRoute.js")
 require('./authSocial.js')
 const passport = require('passport');
 const { isLoggedIn } = require('./middleware/auth.js')
+const {generateAccessToken} = require('./helperFunctions.js')
 
 const app = express()
 
@@ -65,7 +66,12 @@ app.get('/github/callback',
 app.get('/protected', isLoggedIn, (req, res) => {
     // console.log("---------------------------", req.user.emails[0].value)
     // console.log("---------------------------", req.user.id)
-    res.send(`Hello ${req.user.displayName}`);
+
+    const accessToken = generateAccessToken(req.user.id, req.user.emails[0].value)
+    // const refreshToken = generateRefreshToken(user._id, user.email)
+    // refreshTokens.push(refreshToken)
+    // return response.json({ accessToken: accessToken, userEmail: user.email, userPassword: user.password})
+    res.json({accessToken: accessToken});
 });
 
 app.get('/logout', (req, res) => {

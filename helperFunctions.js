@@ -3,6 +3,10 @@ require('dotenv').config()
 
 //----------------Helper Functions-------------------
 
+function generateOTP() {
+    return Math.floor(100000 + Math.random() * 900000);
+}
+
 function generateAccessToken(id, email) {
     return jwt.sign({ id, email }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '3600s' })
 }
@@ -15,5 +19,6 @@ function generateRefreshToken(id, email) {
 
 module.exports = {
     generateAccessToken,
-    generateRefreshToken
+    generateRefreshToken,
+    generateOTP
 }

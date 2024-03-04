@@ -7,6 +7,8 @@ const UserSchema = new mongoose.Schema({
     dateofbirth: { type: String},
     address: { type: String},
     image: { type: String},
+    otp: {type: Number},
+    verified: {type: Boolean, default: false}
 })
 
 const model = mongoose.model('users', UserSchema);
