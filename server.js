@@ -37,17 +37,20 @@ app.get('/', (request, response) => {
 
 
 //-----------------------------------------GOOGLE--------------------------------------------
+const CLIENT_URL= "http://localhost:3001/"
+const FAIL_URL="http://localhost:3001/"
 
 app.get('/auth/google',
     passport.authenticate('google', { scope: ['email', 'profile'] }
     ));
 
 app.get('/google/callback',
-    passport.authenticate('google', {
+passport.authenticate('google', {
         successRedirect: '/protected',
         failureRedirect: '/auth/failure'
     })
 );
+
 
 //-----------------------------------------GITHUB--------------------------------------------
 
@@ -60,18 +63,23 @@ app.get('/github/callback',
         successRedirect: '/protected',
         failureRedirect: '/auth/failure'
     })
-);
+)
 
 
 app.get('/protected', isLoggedIn, (req, res) => {
-    // console.log("---------------------------", req.user.emails[0].value)
-    // console.log("---------------------------", req.user.id)
-
+    console.log("---------------------------", req.user.emails[0].value)
+    console.log("---------------------------", req.user.id)
+// `,imkujnhybgvfdcs//?${tpken}`  
     const accessToken = generateAccessToken(req.user.id, req.user.emails[0].value)
     // const refreshToken = generateRefreshToken(user._id, user.email)
     // refreshTokens.push(refreshToken)
     // return response.json({ accessToken: accessToken, userEmail: user.email, userPassword: user.password})
-    res.json({accessToken: accessToken});
+    // res.json({accessToken: accessToken});
+    // console.log('res-------------------', res)
+    const redirectUrl = `${CLIENT_URL}?token=${accessToken}`;
+    console.log('redirectURL---------------------', redirectUrl)
+    res.redirect(redirectUrl);
+
 });
 
 app.get('/logout', (req, res) => {
@@ -81,8 +89,13 @@ app.get('/logout', (req, res) => {
 });
 
 app.get('/auth/failure', (req, res) => {
-    res.send('Failed to authenticate..');
+    // res.send('Failed to authenticate..');
+    const redirectUrl = `${FAIL_URL}?error=loginError`;
+    res.redirect(redirectUrl);
 });
 
 //----------------MongoDB Connection-------------------
 checkConnection(app, PORT, mongoDBURL);
+
+
+// http://localhost:3000/google/callback?code=4%2F0AeaYSHAkwkoUzsop4PePnQNCr6JadvIsBigVZaUiK5AXGixScTFEGJvcEba8a1PwBaNI9w&scope=email+profile+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid&authuser=0&prompt=consent

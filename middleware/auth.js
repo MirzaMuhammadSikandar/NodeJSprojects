@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 
 //---- Middleware for auth Token ---- 
 function authenticateToken(request, response, next) {
-    console.log('req-------------', request)
+    // console.log('req-------------', request)
     const authHeader = request.headers['authorization']
     const token = authHeader && authHeader.split(' ')[1]
     if (token == null) return response.sendStatus(401)
@@ -18,7 +18,7 @@ function authenticateToken(request, response, next) {
 }
 
 function forgetPasswordAuthToken(request, response, next) {
-    console.log('req-------------', request)
+    // console.log('req-------------', request)
     const authHeader = request.headers['authorization']
     const token = authHeader && authHeader.split(' ')[1]
     console.log("token------------", token)

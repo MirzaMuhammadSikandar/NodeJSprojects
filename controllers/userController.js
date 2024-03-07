@@ -207,7 +207,7 @@ const updateuser = async (request, response) => {
             return response.json({ status: 'error', error: 'User not found' });
         }
     } catch (error) {
-        console.error('Error!!!---------------:', error);
+        // console.error('Error!!!---------------:', error);
         return response.json({ status: 'error', error: 'Something went wrong' });
     }
 }
@@ -228,8 +228,8 @@ const forgetPassword = async (request, response) => {
                 email: user.email
             }
             const token = jwt.sign(payload, secret, { expiresIn: '15m' })
-            // const link = `http://localhost:5555/user/reset-password/${user._id}/${token}`
-            const link = `http://localhost:5173/resetpassword?token=${token}`
+            // const link = `http://localhost:3000/user/reset-password/${user._id}/${token}`
+            const link = `http://localhost:3000/resetpassword?token=${token}`
             console.log(link)
             return sendEmail(user, link, response)
         }

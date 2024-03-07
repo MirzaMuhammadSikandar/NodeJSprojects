@@ -4,10 +4,10 @@ const UserSchema = new mongoose.Schema({
     name: { type: String, required: true},
     email: { type: String, required: true, unique: true },
     password: { type: String, default: null},
-    dateofbirth: { type: String},
-    address: { type: String},
+    dateofbirth: { type: String, default: null},
+    address: { type: String, default: null},
     image: { type: String},
-    otp: {type: Number},
+    otp: {type: Number, default: 0},
     verified: {type: Boolean, default: false}
 })
 
