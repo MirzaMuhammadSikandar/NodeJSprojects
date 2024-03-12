@@ -229,7 +229,7 @@ const forgetPassword = async (request, response) => {
             }
             const token = jwt.sign(payload, secret, { expiresIn: '15m' })
             // const link = `http://localhost:3000/user/reset-password/${user._id}/${token}`
-            const link = `http://localhost:3000/resetpassword?token=${token}`
+            const link = `http://localhost:3001/resetpassword?token=${token}`
             console.log(link)
             return sendEmail(user, link, response)
         }
@@ -293,7 +293,7 @@ const resetPassword = async (request, response) => {
 //----------------------- Get USER -----------------------
 const getUser = async (request, response) => {
     try {
-        console.log('request id--------------------', request.user.id)
+        console.log('GET USER _____ request id--------------------', request.user.id)
         const userData = await User.findById({ _id: request.user.id });
         // const decryptedPassword = crypto.createHash('sha256').update(userData.password).digest('hex');
         // console.log('DECRYPTPASSWORD--------------',decryptedPassword)

@@ -37,7 +37,7 @@ app.get('/', (request, response) => {
 
 
 //-----------------------------------------GOOGLE--------------------------------------------
-const CLIENT_URL= "http://localhost:3001/"
+const CLIENT_URL= "http://localhost:3001/dashboard"
 const FAIL_URL="http://localhost:3001/"
 
 app.get('/auth/google',
